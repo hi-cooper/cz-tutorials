@@ -1,0 +1,13 @@
+package com.taiwii.aspectjdemo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AspectjDemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AspectjDemoApplication.class, args);
+    }
+
+}
