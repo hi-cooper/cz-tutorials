@@ -13,4 +13,9 @@ public class LanguageController {
     public String test() {
         return I18nHelper.getMessage("language.zh_cn");
     }
+
+    @GetMapping("/test2")
+    public String test2() {
+        return I18nHelper.getMessage("language.zh_cn", new String[] {"参数A", "参数B"});
+    }
 }

@@ -14,9 +14,9 @@ public class MemoryMessageSource extends AbstractMessageSource {
     private static final Map<String, String> EN_CN = new HashMap<>();
 
     static {
-        MESSAGES.put("en_US:language.zh_cn", "Chinese");
+        MESSAGES.put("en_US:language.zh_cn", "Chinese{0}, {1}");
         MESSAGES.put("en_US:language.en_us", "US");
-        MESSAGES.put("zh_CN:language.zh_cn", "简体中文");
+        MESSAGES.put("zh_CN:language.zh_cn", "简体中文{0}, {1}");
         MESSAGES.put("zh_CN:language.en_us", "英语（美国）");
     }
 
