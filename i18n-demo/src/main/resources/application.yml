@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  web:
+    locale: zh_CN            # 设置本地语言为zh_CN
+  messages:
+    basename: i18n/messages  # 在i18n文件下message开头的配置文件
+    cache-duration: 10       # 配置缓存的时间，单位 s
+    encoding: UTF-8          # 编码格式
