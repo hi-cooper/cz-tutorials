@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
@@ -86,6 +87,20 @@ public class AuthorizationServerConfig {
                 .scope("testScope")
 //                .postLogoutRedirectUri("http://127.0.0.1:8080/")
 //                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+                .build());
+
+        clients.add(RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("clientCodePKCE")
+                .clientSecret("{noop}secretCodePKCE")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE) // 若开启PKCE， 则需设置为NONE
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUri("http://www.baidu.com")
+                .scope("testScope")
+                .clientSettings(ClientSettings.builder()
+                        .requireAuthorizationConsent(false)
+                        .requireProofKey(true)  // PKCE
+                        .build())
                 .build());
 
         clients.add(RegisteredClient.withId(UUID.randomUUID().toString())
