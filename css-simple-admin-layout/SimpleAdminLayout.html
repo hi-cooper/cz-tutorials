@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Admin Layout</title>
+    <script type="text/javascript">
+      function getStyle(id, name) {
+        var element = document.getElementById(id);
+        return element.currentStyle ? element.currentStyle[name] : window.getComputedStyle ? window.getComputedStyle(element, null).getPropertyValue(name) : null;
+      }
+
+      function toggleSidebar() {
+        var sidebar = document.getElementById('sidebar-wrapper');
+        var drawerBg = document.getElementById('drawer-bg');
+
+        var width = document.body.clientWidth;
+        if (width > 1200) {
+          sidebar.classList.remove('sidebar-wrapper-middle-hide');
+          sidebar.classList.remove('sidebar-wrapper-small-show');
+          drawerBg.classList.remove('drawer-bg-small-show');
+          sidebar.classList.toggle('sidebar-wrapper-big-hide');
+        } else if (width <= 768) {
+          sidebar.classList.remove('sidebar-wrapper-big-hide');
+          sidebar.classList.remove('sidebar-wrapper-middle-hide');
+          sidebar.classList.toggle('sidebar-wrapper-small-show');
+          drawerBg.classList.toggle('drawer-bg-small-show');
+        } else {
+          sidebar.classList.remove('sidebar-wrapper-big-hide');
+          sidebar.classList.remove('sidebar-wrapper-small-show');
+          drawerBg.classList.remove('drawer-bg-small-show');
+          sidebar.classList.toggle('sidebar-wrapper-middle-hide');
+        }
+
+        if (getStyle('sidebar-wrapper', 'display') == 'block') {
+          document.getElementById('btnToggle').innerHTML = '&lt;&lt;';
+        } else {
+          document.getElementById('btnToggle').innerHTML = '&gt;&gt;';
+        }
+      }
+
+      function toggleFullScreen() {}
+    </script>
+
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .app-wrapper {
+        display: flex;
+        height: 100%;
+      }
+
+      .sidebar-wrapper {
+        flex: 0 0 160px;
+        display: block;
+        overflow: auto;
+        background: lightblue;
+      }
+
+      .main-wrapper {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+      }
+
+      .header-wrapper {
+        flex: 0 0 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: lightgreen;
+      }
+
+      .content-wrapper {
+        flex: 1 1 auto;
+        height: calc(100% - 50px);
+        background: lightpink;
+        overflow: auto;
+      }
+    </style>
+
+    <style>
+      /* all: 大屏（>=1200px） */
+      @media (min-width: 1200px) {
+        .sidebar-wrapper-big-hide {
+          display: none;
+        }
+      }
+    </style>
+
+    <style>
+      /* 中屏（>768px && < 1200px） */
+      @media (max-width: 1200px) and (min-width: 768px) {
+        .sidebar-wrapper {
+          flex: 0 0 40px;
+          display: block;
+          overflow: hidden;
+        }
+
+        .sidebar-wrapper-middle-hide {
+          display: none;
+        }
+      }
+    </style>
+
+    <style>
+      /* all: 小屏（<768px） */
+      @media (max-width: 768px) {
+        .sidebar-wrapper {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1001;
+          height: 100%;
+          display: none;
+        }
+
+        .drawer-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          opacity: 0.3;
+          display: none;
+        }
+
+        #sidebar-wrapper.sidebar-wrapper-small-show,
+        #drawer-bg.drawer-bg-small-show {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <!-- 手机设备侧边栏打开遮罩层 -->
+      <div id="drawer-bg" class="drawer-bg" onclick="toggleSidebar()"></div>
+
+      <div id="sidebar-wrapper" class="sidebar-wrapper">sidebar-wrapper</div>
+      <div class="main-wrapper">
+        <div class="header-wrapper">
+          <div>
+            <button id="btnToggle" onclick="toggleSidebar()">&lt;&lt;</button>
+          </div>
+          <div>全屏 &nbsp;&nbsp;&nbsp;&nbsp;头像</div>
+        </div>
+        <div class="content-wrapper">Content</div>
+      </div>
+    </div>
+  </body>
+</html>
